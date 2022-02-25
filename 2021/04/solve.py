@@ -34,20 +34,14 @@ def mark(num, board, marked):
     return False # marking failed
 
 def is_row_bingo(marked):
-    for i in range(5):
-        if marked[i].count(True) == 5:
+    for row in marked:
+        if all(row):
             return True
     return False
 
 def is_col_bingo(marked):
     for i in range(5): # column index i
-        is_bingo = True
-        for j in range(5): # row index j
-            if not marked[j][i]:
-                is_bingo = False
-                break
-
-        if is_bingo:
+        if all([row[i] for row in marked]):
             return True
     return False
 
@@ -87,6 +81,7 @@ marked_all = []
 for _ in range(len(boards)):
     marked_all.append([[False for _ in range(5)] for _ in range(5)])
 
+# playing board index
 playing = [i for i in range(len(boards))]
 
 result = None

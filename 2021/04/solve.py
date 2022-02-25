@@ -4,25 +4,19 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 fname = sys.argv[1]
-input = [line.strip() for line in open(fname)]
+input1, *input2= [line.strip() for line in open(fname).read().split('\n\n')]
 
 # part 1
 
 # get numbers
-nums = [int(str) for str in input[0].split(',')]
+nums = [int(str) for str in input1.split(',')]
 
-# get boards
-input = input[2:]
 boards = []
-board = [] # buffer
-for line in input:
-    if line == '':
-        boards.append(board)
-        board = []
-    else:
-        board_row = [int(str) for str in line.split()]
-        board.append(board_row)
-boards.append(board)
+for chunk in input2:
+    board = [] # buffer
+    for line in chunk.split('\n'):
+        board.append([int(str) for str in line.split()])
+    boards.append(board)
 
 # initialize marked positions for each board
 marked_all = []

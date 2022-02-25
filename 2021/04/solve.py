@@ -81,25 +81,29 @@ marked_all = []
 for _ in range(len(boards)):
     marked_all.append([[False for _ in range(5)] for _ in range(5)])
 
-# playing board index
-playing = [i for i in range(len(boards))]
+# true if each board wins
+is_done = [False for _ in range(len(boards))]
 
 result = None
 for num in nums:
     # mark number for each board
-    for i in playing:
+    for i in range(len(boards)):
+        if is_done[i]:
+            continue
         mark(num, boards[i], marked_all[i])
 
     # check bingo
-    for i in playing:
+    for i in range(len(boards)):
+        if is_done[i]:
+            continue
         if is_row_bingo(marked_all[i]) or is_col_bingo(marked_all[i]):
-            playing.remove(i)
-            if len(playing) == 0: # last board
+            is_done[i] = True
+            if all(is_done): # last board
                 sum = get_sum_of_unmarked(boards[i], marked_all[i])
                 result = sum * num
                 break
 
-    if len(playing) == 0:
+    if all(is_done):
         break
 
 print('Part 2:', result)

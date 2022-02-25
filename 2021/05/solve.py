@@ -1,3 +1,4 @@
+from collections import defaultdict
 import sys
 if len(sys.argv) != 2:
     print('Usage: python solve.py <input-file-name>')
@@ -40,11 +41,7 @@ def draw(x1, y1, x2, y2, overlap):
 
     # increase by 1 for each point
     for point in zip(xs, ys):
-        x, y = point
-        if (x, y) in overlap:
-            overlap[(x, y)] += 1
-        else:
-            overlap[(x, y)] = 1
+        overlap[point] += 1
 
     return overlap
 
@@ -55,7 +52,7 @@ def solve_part1(input):
     # filter out diagonal lines
     lines = list(filter(lambda d: d['x1'] == d['x2'] or d['y1'] == d['y2'], lines))
 
-    overlap = {}
+    overlap = defaultdict(int)
     for line in lines:
         x1, y1, x2, y2 = line['x1'], line['y1'], line['x2'], line['y2']
         overlap = draw(x1, y1, x2, y2, overlap)
@@ -69,7 +66,7 @@ def solve_part2(lines):
     # get lines
     lines = get_lines(input)
 
-    overlap = {}
+    overlap = defaultdict(int)
     for line in lines:
         x1, y1, x2, y2 = line['x1'], line['y1'], line['x2'], line['y2']
         overlap = draw(x1, y1, x2, y2, overlap)

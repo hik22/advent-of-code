@@ -9,9 +9,10 @@ input = [int(str) for str in open(fname).read().strip().split(',')]
 
 def get_total_fuel(input, callback):
     crabs = Counter(input)
-    pos_max = max(crabs.keys())
-    pos_min = min(crabs.keys())
+    # get possible positions
+    pos = range(min(crabs.keys()), max(crabs.keys()+1))
 
+    # get fuel for each position to find the minimum fuel
     prev_fuel = None
     for i in range(pos_min, pos_max+1):
         fuel = 0

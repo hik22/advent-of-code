@@ -12,6 +12,7 @@ def is_low_point(x, y, nums):
     ymax = len(nums)-1
     cur = nums[y][x]
 
+    # check boundaries and compare
     if x > 0 and nums[y][x-1] <= cur:
         return False
     if x < xmax and nums[y][x+1] <= cur:
@@ -49,7 +50,7 @@ def get_basin_containing_pos(x, y, nums):
         x, y = set.pop()
 
         basin.append(nums[y][x])
-        nums[y][x] = 9
+        nums[y][x] = 9 # prevent further visits
 
         if y > 0 and nums[y-1][x] != 9:
             set.add((x, y-1))

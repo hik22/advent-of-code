@@ -2,6 +2,29 @@
 
 Solutions of [Advent of Code 2021][aoc] challenge.
 
+## Generating Solutions
+
+### Python
+
+Execute the following command:
+```bash
+$ python solve.py <input-file-name>
+```
+
+### Java
+
+Use make:
+```bash
+$ make test
+```
+Note that the input file name must be `input`.
+
+Or, manually compile:
+```bash
+$ java Solve.java
+$ javac Solve <input-file-name>
+```
+
 ## Tested on
 
 ```bash

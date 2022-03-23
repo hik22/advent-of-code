@@ -13,7 +13,7 @@ if (process.argv.length !== 3) {
 }
 
 function solve(state) {
-  const updates = [];
+  const buffer = [];
 
   let step = 0;
   while (true) {
@@ -26,15 +26,15 @@ function solve(state) {
       for (let x = 0; x < state[0].length; ++x) {
         const nx = getRightPos(state, x);
         if (state[y][x] === ">" && state[y][nx] === ".") {
-          updates.push([x, y, "."]);
-          updates.push([nx, y, ">"]);
+          buffer.push([x, y, "."]);
+          buffer.push([nx, y, ">"]);
           changed = true;
         }
       }
     }
 
     // update
-    for (const [x, y, c] of updates) {
+    for (const [x, y, c] of buffer) {
       state[y][x] = c;
     }
 
@@ -43,15 +43,15 @@ function solve(state) {
       for (let x = 0; x < state[0].length; ++x) {
         const ny = getBottomPos(state, y);
         if (state[y][x] === "v" && state[ny][x] === ".") {
-          updates.push([x, y, "."]);
-          updates.push([x, ny, "v"]);
+          buffer.push([x, y, "."]);
+          buffer.push([x, ny, "v"]);
           changed = true;
         }
       }
     }
 
     // update
-    for (const [x, y, c] of updates) {
+    for (const [x, y, c] of buffer) {
       state[y][x] = c;
     }
 
@@ -60,7 +60,7 @@ function solve(state) {
     }
   }
 
-  console.log(step);
+  console.log("Part 1: " + step);
 
   function getRightPos(state, x) {
     return (x < state[0].length-1) ? x+1 : 0;
